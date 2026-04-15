@@ -1,0 +1,29 @@
+{
+  "name": "crowdin-custom-mt-template",
+  "version": "1.0.0",
+  "description": "Template project to quickly get started with custom Machine Translation providers for Crowdin",
+  "main": "handler.js",
+  "scripts": {
+    "start": "node handler.js",
+    "dev": "nodemon -r dotenv/config handler.js",
+    "debug": "nodemon --inspect -r dotenv/config handler.js"
+  },
+  "keywords": [
+    "crowdin",
+    "custom-mt",
+    "machine-translation",
+    "translation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@crowdin/app-project-module": "^1.0.2",
+    "@crowdin/crowdin-api-client": "^1.52.0",
+    "axios": "^1.13.5",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.4",
+    "nodemon": "^3.1.11"
+  }
+}
