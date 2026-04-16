@@ -12,7 +12,8 @@ yarn-error.log*
 .env.production.local
 
 # Database (local SQLite)
-db/
+db/*
+!db/.gitkeep
 *.db
 *.sqlite
 *.sqlite3
