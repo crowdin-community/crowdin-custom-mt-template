@@ -20,7 +20,8 @@
     "@crowdin/app-project-module": "^1.0.2",
     "@crowdin/crowdin-api-client": "^1.52.0",
     "axios": "^1.13.5",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "serverless-http": "^3.2.0"
   },
   "devDependencies": {
     "dotenv": "^17.2.4",

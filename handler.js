@@ -1,5 +1,6 @@
 const crowdinModule = require('@crowdin/app-project-module'); // Crowdin App development framework
 const axios = require('axios');
+const serverless = require('serverless-http');
 
 const express = crowdinModule.express; // Express instance from the framework (includes best-practice middleware)
 const app = express();
@@ -12,6 +13,16 @@ const configuration = {
     description: 'Template for building a custom Machine Translation provider for Crowdin',
 
     imagePath: __dirname + '/logo.svg', // app's logo
+
+    // Use PostgreSQL for production (serverless); SQLite locally when DB_HOST is absent
+    ...(process.env.DB_HOST && {
+        postgreConfig: {
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_DATABASE,
+        },
+    }),
 
     // Crowdin Custom MT interface
     // https://crowdin.github.io/app-project-module/tools/custom-mt/
@@ -198,6 +209,11 @@ app.post(
     }
 );
 
-app.listen(process.env.PORT || 3000, () =>
-    console.info(`Custom MT app listening on port ${process.env.PORT || 3000}`)
-);
+// Serverless (AWS Lambda) when DB_HOST is set; local Express server otherwise
+if (process.env.DB_HOST) {
+    module.exports.handler = serverless(app);
+} else {
+    app.listen(process.env.PORT || 3000, () =>
+        console.info(`Custom MT app listening on port ${process.env.PORT || 3000}`)
+    );
+}
